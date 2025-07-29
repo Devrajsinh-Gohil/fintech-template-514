@@ -20,29 +20,18 @@ const HeroSection = () => {
       return;
     }
     
-    // Google Drive file IDs for the installers
-    const fileIds = {
-      // Replace these with your actual Google Drive file IDs
-      windows: 'YOUR_WINDOWS_FILE_ID',
-      mac: 'YOUR_MAC_FILE_ID'
-    };
-    
     // File names for the installers (zip files)
-    const fileNames = {
+    const files = {
       windows: 'AI-DPR-Windows.zip',
       mac: 'AI-DPR-Mac.zip'
     };
     
     try {
-      // Create Google Drive direct download URL
-      const fileId = fileIds[platform];
-      const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-      
       // Create a temporary anchor element to trigger the download
       const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.setAttribute('download', fileNames[platform]);
-      link.setAttribute('target', '_blank');
+      const fileUrl = `/downloads/${files[platform]}`;
+      link.href = fileUrl;
+      link.download = files[platform];
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -50,8 +39,8 @@ const HeroSection = () => {
       console.log(`Download started for ${platform}`);
     } catch (error) {
       console.error('Error starting download:', error);
-      // Fallback to opening the Google Drive link in a new tab
-      window.open(`https://drive.google.com/file/d/${fileIds[platform]}/view`, '_blank');
+      // Fallback to opening in a new tab if the download doesn't start
+      window.open(`/downloads/${files[platform]}`, '_blank');
     }
   };
   
