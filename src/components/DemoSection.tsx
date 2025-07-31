@@ -2,7 +2,7 @@ import React from 'react';
 
 const DemoSection = () => {
   // YouTube video ID (the part after 'v=' in the URL)
-  const youtubeVideoId = 'ctY2LntoQ38';
+  const youtubeVideoId = 'Di6Of0yYekQ';
   
   return (
     <section className="w-full py-16 px-6 bg-background md:py-[100px] md:px-[64px]">
