@@ -14,34 +14,14 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleDownload = async (platform: 'windows' | 'mac') => {
-    if (!user) {
-      await signInWithGoogle();
-      return;
-    }
-    
-    // File names for the installers (zip files)
-    const files = {
-      windows: 'AI-DPR-Windows.zip',
-      mac: 'AI-DPR-Mac.zip'
+  const handleDownload = (platform: 'windows' | 'mac') => {
+    const downloadLinks = {
+      windows: 'https://github.com/Devrajsinh-Gohil/fintech-template-514/raw/refs/heads/main/public/downloads/AI-DPR-Windows.zip?download=',
+      mac: 'https://github.com/Devrajsinh-Gohil/fintech-template-514/raw/refs/heads/main/public/downloads/AI-DPR-Mac.zip?download='
     };
     
-    try {
-      // Create a temporary anchor element to trigger the download
-      const link = document.createElement('a');
-      const fileUrl = `/downloads/${files[platform]}`;
-      link.href = fileUrl;
-      link.download = files[platform];
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      console.log(`Download started for ${platform}`);
-    } catch (error) {
-      console.error('Error starting download:', error);
-      // Fallback to opening in a new tab if the download doesn't start
-      window.open(`/downloads/${files[platform]}`, '_blank');
-    }
+    // Open the direct download link in a new tab
+    window.open(downloadLinks[platform], '_blank');
   };
   
   return (
