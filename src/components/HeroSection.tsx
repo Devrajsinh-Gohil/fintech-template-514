@@ -21,7 +21,11 @@ const HeroSection = () => {
     };
     
     // Open the direct download link in a new tab
-    window.open(downloadLinks[platform], '_blank');
+    const link = document.createElement('a');
+    link.href = downloadLinks[platform];
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.click();
   };
   
   return (
