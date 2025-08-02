@@ -14,13 +14,19 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleDownload = (platform: 'windows' | 'mac') => {
+  const handleDownload = async (platform: 'windows' | 'mac') => {
+    if (!user) {
+      // If user is not signed in, prompt them to sign in
+      await signInWithGoogle();
+      return; // Wait for sign in to complete
+    }
+    
+    // Only proceed with download if user is signed in
     const downloadLinks = {
       windows: 'https://github.com/Devrajsinh-Gohil/fintech-template-514/raw/refs/heads/main/public/downloads/AI-DPR-Windows.zip?download=',
       mac: 'https://github.com/Devrajsinh-Gohil/fintech-template-514/raw/refs/heads/main/public/downloads/AI-DPR-Mac.zip?download='
     };
     
-    // Open the direct download link in a new tab
     const link = document.createElement('a');
     link.href = downloadLinks[platform];
     link.target = '_blank';
@@ -61,7 +67,7 @@ const HeroSection = () => {
                 className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px] flex items-center gap-2"
               >
                 <Download className="h-4 w-4" />
-                Download for Windows
+                {user ? 'Download for Windows' : 'Sign in to Download'}
               </Button>
               <Button 
                 onClick={() => handleDownload('mac')}
@@ -69,7 +75,7 @@ const HeroSection = () => {
                 className="border-border text-foreground hover:bg-accent hover:text-accent-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px] flex items-center gap-2"
               >
                 <Download className="h-4 w-4" />
-                Download for Mac
+                {user ? 'Download for Mac' : 'Sign in to Download'}
               </Button>
             </div>
             
